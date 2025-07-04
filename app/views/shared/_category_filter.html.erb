@@ -20,10 +20,18 @@
     <%= all_text %>
   </div>
   
+  <%# Debug information - will be visible in the HTML source %>
+  <!-- 
+  Categories: <%= categories.inspect %>
+  Categories Type: <%= categories.class %>
+  -->
+  
   <% categories.each do |category| %>
+    <%# Debug info for each category %>
+    <!-- Category: <%= category.inspect %> (Type: <%= category.class %>) -->
     <div class="filter_pill-<%= category %>" 
          data-<%= controller_name %>-target="pill" 
-         data-category="<%= category %>" 
+         data-category="<%= category.to_s %>" 
          data-action="click-><%= controller_name %>#toggle">
       <%= category.to_s.titleize %>
     </div>

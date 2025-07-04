@@ -57,7 +57,7 @@
         <%# Timeline Item Event Loop %>
         <div id="events">
           <% @events.each do |event| %>
-            <%= render event %>
+            <%= render "events/index/event", event: event %>
           <% end %>
         </div>
         <%# Timeline Item Event Loop End %>
@@ -86,6 +86,6 @@
         <div class="overlay-fade-bottom"></div>
       </div>
     </div>
-    <div style="height: 50vh;"></div>
+    <div style="height: 50vh; background-color: #0a0a0a;"></div>
   </section>
 </div>

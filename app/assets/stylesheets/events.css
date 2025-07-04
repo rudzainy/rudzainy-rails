@@ -262,16 +262,54 @@
 }
 
 /* Event Category Title Styling */
-.timeline_text h2.employment-title {
-  color: #2575fc;
+/* Timeline view */
+.timeline-title.employment-color,
+.timeline_text h2.employment-title,
+.employment-color {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.timeline_text h2.freelancing-title {
-  color: #ffc837;
+.timeline-title.freelancing-color,
+.timeline_text h2.freelancing-title,
+.freelancing-color {
+  background: linear-gradient(135deg, #ff8008 0%, #ffc837 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.timeline_text h2.education-title {
-  color: #38ef7d;
+.timeline-title.education-color,
+.timeline_text h2.education-title,
+.education-color {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Show page */
+.event-title.employment-color {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.event-title.freelancing-color {
+  background: linear-gradient(135deg, #ff8008 0%, #ffc837 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.event-title.education-color {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Hide events when filtered out */

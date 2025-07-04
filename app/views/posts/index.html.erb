@@ -19,8 +19,9 @@
     <div class="container">
       <div class="padding-vertical-xlarge">
         <%# Category Filter Pills using shared component %>
+        <% post_categories = ['work', 'life', 'balance'] %>
         <%= render 'shared/category_filter', 
-                   categories: Post.categories.keys, 
+                   categories: post_categories, 
                    controller_name: 'category-filter', 
                    all_text: 'All posts',
                    css_prefix: 'post' %>
@@ -45,12 +46,8 @@
         <div class="overlay-fade-top"></div>
         <div class="overlay-fade-bottom"></div>
       </div>
-      
-      <div class="admin-controls">
-        <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
-      </div>
     </div>
     
-    <div style="height: 50vh;"></div>
+    <div style="height: 50vh; background-color: #0a0a0a;"></div>
   </section>
 </div>

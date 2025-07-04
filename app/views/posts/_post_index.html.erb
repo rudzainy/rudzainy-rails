@@ -1,4 +1,12 @@
-<div class="timeline_item" data-category-filter-target="item" data-category="<%= post.category %>">
+<%# Debug information - will be visible in the HTML source %>
+<!-- 
+Post ID: <%= post.id %>
+Post Category: <%= post.category.inspect %>
+Post Category Type: <%= post.category.class %>
+Post Category Before Type Cast: <%= post.category_before_type_cast.inspect %>
+-->
+
+<div class="timeline_item" data-category-filter-target="item" data-category="<%= post.category.to_s %>">
   <div class="timeline_item-left">
     <div class="timeline_item-date">
       <%= post.created_at.strftime("%b %Y") %>

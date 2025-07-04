@@ -6,58 +6,78 @@ export default class extends Controller {
   static targets = ["pill", "item"]
 
   connect() {
-    console.log(`Category filter controller connected`)
-    console.log(`Found ${this.itemTargets.length} item targets`)
-    console.log(`Found ${this.pillTargets.length} pill targets`)
+    // Controller initialization
   }
 
   toggle(event) {
     const pill = event.currentTarget
     const category = pill.dataset.category
     
-    // Handle "All" category
     if (category === "all") {
-      // Reset all pills
-      this.pillTargets.forEach(p => {
-        if (p.dataset.category === "all") {
-          p.classList.add("active")
-        } else {
-          p.classList.remove("active")
-        }
-      })
-      
-      // Show all items
-      this.itemTargets.forEach(item => {
-        item.classList.remove("hidden")
-      })
+      this.handleAllCategory()
       return
     }
     
-    // Handle category selection
-    const isActive = pill.classList.toggle("active")
+    // Toggle the clicked category pill
+    pill.classList.toggle("active")
     
-    // Deactivate "All" pill when a category is selected
-    this.pillTargets.find(p => p.dataset.category === "all").classList.remove("active")
+    // Deactivate "All" pill when a specific category is selected
+    this.getAllPill().classList.remove("active")
     
-    // Get all active categories
-    const activeCategories = Array.from(this.pillTargets)
-      .filter(p => p.classList.contains("active"))
-      .map(p => p.dataset.category)
+    // Get all currently active categories
+    const activeCategories = this.getActiveCategories()
     
-    // If no categories are selected, activate "All" and show all items
+    // If no categories are selected, revert to "All"
     if (activeCategories.length === 0) {
-      this.pillTargets.find(p => p.dataset.category === "all").classList.add("active")
-      this.itemTargets.forEach(item => {
-        item.classList.remove("hidden")
-      })
+      this.handleAllCategory()
       return
     }
     
     // Filter items based on active categories
+    this.filterItemsByCategories(activeCategories)
+  }
+  
+  // Helper methods
+  getAllPill() {
+    return this.pillTargets.find(p => p.dataset.category === "all")
+  }
+  
+  getActiveCategories() {
+    return Array.from(this.pillTargets)
+      .filter(p => p.classList.contains("active"))
+      .map(p => p.dataset.category)
+  }
+  
+  handleAllCategory() {
+    // Reset all pills
+    this.pillTargets.forEach(p => {
+      if (p.dataset.category === "all") {
+        p.classList.add("active")
+      } else {
+        p.classList.remove("active")
+      }
+    })
+    
+    // Show all items
+    this.showAllItems()
+  }
+  
+  showAllItems() {
+    this.itemTargets.forEach(item => {
+      item.classList.remove("hidden")
+    })
+  }
+  
+  filterItemsByCategories(activeCategories) {
     this.itemTargets.forEach(item => {
       const itemCategory = item.dataset.category
-      console.log(`Item category: ${itemCategory}, Active categories: ${activeCategories}`)
-      if (activeCategories.includes(itemCategory)) {
+      
+      // Use string comparison to check if the item category is in the active categories
+      const matches = activeCategories.some(activeCategory => {
+        return activeCategory.toString() === itemCategory.toString()
+      })
+      
+      if (matches) {
         item.classList.remove("hidden")
       } else {
         item.classList.add("hidden")
