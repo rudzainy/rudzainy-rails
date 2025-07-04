@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @events = Event.all.order(start_date: :desc)
-    
+
     respond_to do |format|
       format.html
       format.turbo_stream

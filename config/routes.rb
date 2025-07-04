@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   if Rails.env.development?
     resources :posts, param: :slug
   else
-    resources :posts, param: :slug, only: [:index, :show]
+    resources :posts, param: :slug, only: [ :index, :show ]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

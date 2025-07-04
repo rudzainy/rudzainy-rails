@@ -1,5 +1,4 @@
 class Event < ApplicationRecord
-
   has_rich_text :content
 
   enum :category, {

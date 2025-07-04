@@ -254,7 +254,7 @@ events.each do |event_data|
     # Generate placeholder content if no existing content and none provided
     event_data[:content] = "Details about #{event_data[:title]} at #{event_data[:subtitle]} in #{event_data[:location]}."
   end
-  
+
   event = Event.create!(event_data)
   puts "Created event: #{event.title}"
 end
