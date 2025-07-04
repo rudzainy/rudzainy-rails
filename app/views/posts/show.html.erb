@@ -1,7 +1,8 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, @post.title %>
 
-<%= render @post %>
-
+<div class="page-wrapper">
+  <%= render @post %>
+</div>
 <div>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
   <%= link_to "Back to posts", posts_path %>

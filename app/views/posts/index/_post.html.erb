@@ -1,0 +1,23 @@
+<div class="timeline_item">
+  <div class="timeline_item-left">
+    <div class="timeline_item-date"><%= post.created_at.strftime("%a, %-d %B %Y") %></div>
+  </div>
+  <div class="timeline_item-center">
+    <div class="timeline_circle"></div>
+  </div>
+  <div class="timeline_item-right">
+    <div class="margin-bottom-xlarge">
+      <div class="timeline_text">
+        <% if post.draft? %>
+          <span class="pill-draft">Draft</span>
+        <% end %>
+        <h2><%= post.title %></h2>
+        <p><%= post.tldr %></p>
+        <%= link_to "Read this post", post, class: "timeline_link" %>
+      </div>
+    </div>
+    <div class="timeline_image-wrapper">
+      <img src="https://via.placeholder.com/600x400" alt="Post Image" />
+    </div>
+  </div>
+</div>

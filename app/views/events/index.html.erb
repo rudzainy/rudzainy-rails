@@ -1,0 +1,91 @@
+<div class="page-wrapper" data-controller="category-filter">
+  <section class="timeline-heading">
+    <div class="container">
+      <div class="padding-vertical-xlarge">
+        <div class="timeline-main_heading-wrapper">
+          <span class="pre-h1">of</span><h1>Rudzainy Rahman</h1>
+          <div class="margin-bottom-medium">
+            <%= image_tag "/images/favicons/apple-touch-icon.png", class: "profile-image", alt: "Rudzainy Rahman" %>
+          </div>
+          <p class="paragraph-large">
+            a passionate UI/UX designer with a multifaceted background and a thirst for adventure and process optimization!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline-heading">
+    <div class="container">
+      <div class="padding-vertical-xlarge">
+        <%# Category Filter Pills using shared component %>
+        <%= render 'shared/category_filter', 
+                   categories: Event.categories.keys, 
+                   controller_name: 'category-filter', 
+                   all_text: 'All life events',
+                   css_prefix: 'event' %>
+      </div>
+    </div>
+  </section>
+  <section class="timeline">
+    <div class="container">
+      <div class="timeline_component">
+        <div class="timeline_progress">
+          <div class="timeline_progress-bar"></div>
+        </div>
+        <%# Timeline Item Present %>
+        <div class="timeline_item">
+          <div class="timeline_item-left">
+            <div class="timeline_item-date">Present</div>
+          </div>
+          <div class="timeline_item-center">
+            <div class="timeline_circle"></div>
+          </div>
+          <div class="timeline_item-right">
+            <div class="margin-bottom-xlarge">
+              <div class="timeline_text">
+                <h2>Full Stack Ruby on Rails Developer</h2>
+                <p>Building and managing multiple Ruby on Rails projects for Kintsugi Design.</p>
+              </div>
+            </div>
+            <div class="timeline_image-wrapper">
+              <img src="https://via.placeholder.com/600x400" alt="Post Image" />
+            </div>
+          </div>
+        </div>
+        <%# Timeline Item Present End %>
+        <%# Timeline Item Event Loop %>
+        <div id="events">
+          <% @events.each do |event| %>
+            <%= render event %>
+          <% end %>
+        </div>
+        <%# Timeline Item Event Loop End %>
+        <%# Last Timeline Item %>
+        <div class="timeline_item">
+          <div class="timeline_item-left">
+            <div class="timeline_item-date">September 1985</div>
+          </div>
+          <div class="timeline_item-center">
+            <div class="timeline_circle"></div>
+          </div>
+          <div class="timeline_item-right">
+            <div class="margin-bottom-xlarge">
+              <div class="timeline_text">
+                <h2>Born in Sandakan, Sabah MY</h2>
+                <p>At 4:00am, so I was told :D</p>
+              </div>
+            </div>
+            <div class="timeline_image-wrapper">
+              <img src="https://via.placeholder.com/600x400" alt="Post Image">
+            </div>
+          </div>
+        </div>
+        <%# Last Timeline Item End %>
+        <div class="overlay-fade-top"></div>
+        <div class="overlay-fade-bottom"></div>
+      </div>
+    </div>
+    <div style="height: 50vh;"></div>
+  </section>
+</div>

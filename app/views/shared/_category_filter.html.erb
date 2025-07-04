@@ -1,0 +1,31 @@
+<%# 
+  Shared Category Filter Component
+  
+  Required parameters:
+  - categories: Array of category symbols or strings
+  - controller_name: Name of the Stimulus controller (e.g., "event-filter" or "post-filter")
+  - all_text: Text for the "All" filter pill (e.g., "All life events" or "All posts")
+  
+  Optional parameters:
+  - css_prefix: CSS class prefix for styling (defaults to the singular form of controller_name)
+%>
+
+<% css_prefix = local_assigns[:css_prefix] || controller_name.split('-').first.singularize %>
+
+<div class="filter_pill-wrapper">
+  <div class="filter_pill-default active" 
+       data-<%= controller_name %>-target="pill" 
+       data-category="all" 
+       data-action="click-><%= controller_name %>#toggle">
+    <%= all_text %>
+  </div>
+  
+  <% categories.each do |category| %>
+    <div class="filter_pill-<%= category %>" 
+         data-<%= controller_name %>-target="pill" 
+         data-category="<%= category %>" 
+         data-action="click-><%= controller_name %>#toggle">
+      <%= category.to_s.titleize %>
+    </div>
+  <% end %>
+</div>

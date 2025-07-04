@@ -1,0 +1,367 @@
+/* Index */
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 1rem;
+}
+
+.margin-bottom-medium {
+  margin-bottom: 2rem;
+}
+
+.paragraph-large {
+  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+}
+
+.timeline-heading {
+  background-color: #0a0a0a;
+}
+
+.padding-vertical-xlarge {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+.timeline-main_heading-wrapper {
+  color: #fff;
+  text-align: center;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.timeline_component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.timeline_item {
+  z-index: 2;
+  display: grid;
+  position: relative;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  grid-template-columns: 1fr 180px 1fr;
+  grid-template-rows: auto;
+  grid-auto-columns: 1fr;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.timeline_item-left {
+  text-align: right;
+  justify-content: flex-end;
+  align-content: stretch;
+}
+
+.timeline_item-center {
+  justify-content: center;
+  display: flex;
+}
+
+.timeline_item-date {
+  color: #fff;
+  letter-spacing: -0.03em;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  position: sticky;
+  top: 50vh;
+}
+
+.timeline_item-date-span {
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.timeline_text {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.timeline_circle {
+  background-color: #fff;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  min-height: 15px;
+  max-width: 15px;
+  max-height: 15px;
+  position: sticky;
+  top: 50vh;
+  box-shadow: 0 0 0 8px #0a0a0a;
+}
+
+.timeline_progress {
+  z-index: -2;
+  background-color: #414141;
+  width: 3px;
+  height: 100%;
+  position: absolute;
+}
+
+.timeline_progress-bar {
+  z-index: -1;
+  background: #005477;
+  background: -webkit-linear-gradient(
+    to bottom,
+    #005477,
+    #40E0D0
+  );
+  background: linear-gradient(
+    to bottom,
+    #005477,
+    #40E0D0
+  );
+  width: 3px;
+  height: 50vh;
+  position: fixed;
+  inset: 0 auto 50vh;
+}
+
+.timeline {
+  z-index: -3;
+  background-color: #0a0a0a;
+  position: relative;
+}
+
+.margin-bottom-xlarge {
+  margin-bottom: 7rem;
+}
+
+.timeline_link, 
+.navbar_link {
+  opacity: 0.6;
+  color: #fff;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: #005477;
+  transition: opacity 0.3s ease-in-out;
+  display: flex;
+}
+
+.timeline_link:hover,
+.timeline_link:active,
+.navbar_link:hover,
+.navbar_link:active,
+.active_page {
+  opacity: 1;
+  text-decoration-color: #40E0D0;
+}
+
+.navbar_links {
+  display: flex;
+  gap: 1rem;
+}
+
+.link-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+}
+
+/* Filter Pills */
+.filter_pill-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.filter_pill-default,
+.filter_pill-employment,
+.filter_pill-freelancing,
+.filter_pill-education {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  border: 2px solid;
+  background-color: transparent;
+  background-clip: padding-box;
+}
+
+.filter_pill-default:hover,
+.filter_pill-employment:hover,
+.filter_pill-freelancing:hover,
+.filter_pill-education:hover,
+.filter_pill-default.active,
+.filter_pill-employment.active,
+.filter_pill-freelancing.active,
+.filter_pill-education.active {
+  opacity: 1;
+  background-clip: border-box;
+  color: white;
+}
+
+/* Default (All) Pill */
+.filter_pill-default {
+  border-color: #005477;
+  color: #005477;
+}
+
+.filter_pill-default:hover,
+.filter_pill-default.active {
+  background: linear-gradient(135deg, #005477, #40E0D0);
+}
+
+/* Employment Pill */
+.filter_pill-employment {
+  border-color: #6a11cb;
+  color: #6a11cb;
+}
+
+.filter_pill-employment:hover,
+.filter_pill-employment.active {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+/* Freelancing Pill */
+.filter_pill-freelancing {
+  border-color: #ff8008;
+  color: #ff8008;
+}
+
+.filter_pill-freelancing:hover,
+.filter_pill-freelancing.active {
+  background: linear-gradient(135deg, #ff8008, #ffc837);
+}
+
+/* Education Pill */
+.filter_pill-education {
+  border-color: #11998e;
+  color: #11998e;
+}
+
+.filter_pill-education:hover,
+.filter_pill-education.active {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+/* Event Category Title Styling */
+.timeline_text h2.employment-title {
+  color: #2575fc;
+}
+
+.timeline_text h2.freelancing-title {
+  color: #ffc837;
+}
+
+.timeline_text h2.education-title {
+  color: #38ef7d;
+}
+
+/* Hide events when filtered out */
+.hidden {
+  display: none !important;
+}
+
+.text-color-lightgray {
+  color: #ffffffa6;
+}
+
+.overlay-fade-top {
+  position: absolute;
+  inset: 0% 0% auto;
+  height: 80px;
+  background: linear-gradient(
+    to bottom,
+    #0a0a0a, 
+    #0a0a0a00);
+}
+
+.overlay-fade-bottom {
+  position: absolute;
+  inset: auto 0% 0% 0%;
+  height: 80px;
+  background: linear-gradient(
+    to top,
+    #0a0a0a, 
+    #0a0a0a00
+  );
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+  }
+
+  .pre-h1 {
+    font-size: 2rem;
+    margin-right: 0;
+
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .paragraph-large {
+    font-size: 1.2rem;
+  }
+
+  .padding-vertical-xlarge {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .timeline_item {
+    grid-template-columns: 64px 1fr;
+    width: 100%;
+  }
+
+  .timeline_item-left {
+    text-align: left;
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  .timeline_item-center {
+    justify-content: flex-start;
+    grid-area: 1 / 1 / 3 / 2;
+  }
+
+  .timeline_item-right {
+    grid-area: span 1 / span 1 / span 1 / span 1;
+  }
+
+  .timeline_progress {
+    left: 6px;
+  }
+
+  .timeline_item-date {
+    margin-bottom: 24px;
+    font-size: 2rem;
+  }
+
+  .timeline_text {
+    font-size: 1.4rem;
+  }
+
+  .margin-bottom-xlarge {
+    margin-bottom: 5rem;
+  }
+}

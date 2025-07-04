@@ -1,24 +1,13 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong>Title:</strong>
-    <%= post.title %>
-  </p>
-
-  <p>
-    <strong>Slug:</strong>
-    <%= post.slug %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= post.status %>
-  </p>
-
-  <% if controller_name == 'posts' && action_name == 'show' %>
-    <p>
-      <strong>Content:</strong>
-      <%= post.content %>
-    </p>
-  <% end %>
-
-</div>
+<section class="post-heading" data-category-filter-target="item" data-category="<%= post.category %>">
+  <div class="container">
+    <div class="padding-vertical-xlarge">
+      <div class="post-main_heading-wrapper">
+        <div class="post_item-date"><%= post.created_at.strftime("%A,%-d %B %Y") %></div>
+        <h1 class="post-title-<%= post.category %>"><%= post.title %></h1>
+        <p class="paragraph-large">
+          <%= post.content %>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

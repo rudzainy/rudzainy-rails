@@ -1,16 +1,56 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Posts" %>
-
-<h1>Posts</h1>
-
-<div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
-  <% end %>
+<div class="page-wrapper" data-controller="category-filter">
+  <section class="timeline-heading">
+    <div class="container">
+      <div class="padding-vertical-xlarge">
+        <div class="timeline-main_heading-wrapper">
+          <span class="pre-h1">of</span><h1>Rudzainy Rahman</h1>
+          <div class="margin-bottom-medium">
+            <%= image_tag "/images/favicons/apple-touch-icon.png", class: "profile-image", alt: "Rudzainy Rahman" %>
+          </div>
+          <p class="paragraph-large">
+            a passionate UI/UX designer with a multifaceted background and a thirst for adventure and process optimization!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="timeline-heading">
+    <div class="container">
+      <div class="padding-vertical-xlarge">
+        <%# Category Filter Pills using shared component %>
+        <%= render 'shared/category_filter', 
+                   categories: Post.categories.keys, 
+                   controller_name: 'category-filter', 
+                   all_text: 'All posts',
+                   css_prefix: 'post' %>
+      </div>
+    </div>
+  </section>
+  <section class="timeline">
+    <% content_for :title, "Posts" %>
+    
+    <div class="container">
+      <div class="timeline_component">
+        <div class="timeline_progress">
+          <div class="timeline_progress-bar"></div>
+        </div>
+        
+        <div id="posts">
+          <% @posts.each do |post| %>
+            <%= render 'post_index', post: post %>
+          <% end %>
+        </div>
+        
+        <div class="overlay-fade-top"></div>
+        <div class="overlay-fade-bottom"></div>
+      </div>
+      
+      <div class="admin-controls">
+        <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+    
+    <div style="height: 50vh;"></div>
+  </section>
 </div>
-
-<%= link_to "New post", new_post_path %>

@@ -1,0 +1,88 @@
+.post-heading {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.post-heading.hidden {
+  display: none;
+}
+
+/* Post Category Title Colors */
+.post-title-work {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.post-title-life {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.post-title-balance {
+  background: linear-gradient(135deg, #f46b45 0%, #eea849 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Post Category Filter Pills */
+.filter_pill-work {
+  border: 2px solid #4b6cb7;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  display: inline-block;
+}
+
+.filter_pill-work:hover,
+.filter_pill-work.active {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  color: white;
+  opacity: 1;
+}
+
+.filter_pill-life {
+  border: 2px solid #11998e;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  display: inline-block;
+}
+
+.filter_pill-life:hover,
+.filter_pill-life.active {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  opacity: 1;
+}
+
+.filter_pill-balance {
+  border: 2px solid #f46b45;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  display: inline-block;
+}
+
+.filter_pill-balance:hover,
+.filter_pill-balance.active {
+  background: linear-gradient(135deg, #f46b45 0%, #eea849 100%);
+  color: white;
+  opacity: 1;
+}

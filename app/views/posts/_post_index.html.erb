@@ -1,0 +1,37 @@
+<div class="timeline_item" data-category-filter-target="item" data-category="<%= post.category %>">
+  <div class="timeline_item-left">
+    <div class="timeline_item-date">
+      <%= post.created_at.strftime("%b %Y") %>
+    </div>
+  </div>
+  <div class="timeline_item-center">
+    <div class="timeline_circle"></div>
+  </div>
+  <div class="timeline_item-right">
+    <div class="margin-bottom-xlarge">
+      <div class="timeline_text">
+        <% if post.status == "draft" %>
+          <span class="pill-draft">Draft</span>
+        <% end %>
+        <h2 class="post-title-<%= post.category %>"><%= post.title %></h2>
+        <p><%= post.created_at.strftime("%A, %-d %B %Y") %></p>
+        <p><%= post.tldr.present? ? post.tldr : post.content.to_plain_text.truncate(150) %></p>
+        <%= link_to "Read full post", post, class: "timeline_link" %>
+      </div>
+    </div>
+    <% if post.content.embeds.attached? %>
+      <div class="timeline_image-wrapper">
+        <% post.content.embeds.each do |embed| %>
+          <% if embed.image? %>
+            <%= image_tag embed.variant(resize_to_limit: [600, 400]), alt: "Post Image" %>
+            <% break %>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="timeline_image-wrapper">
+        <img src="https://via.placeholder.com/600x400" alt="Post Image" />
+      </div>
+    <% end %>
+  </div>
+</div>

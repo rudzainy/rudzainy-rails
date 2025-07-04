@@ -1,0 +1,5 @@
+<%= turbo_stream.update "events" do %>
+  <% @events.each do |event| %>
+    <%= render event %>
+  <% end %>
+<% end %>

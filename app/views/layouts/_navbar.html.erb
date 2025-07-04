@@ -1,0 +1,28 @@
+<nav class="navbar container">
+  <div class="navbar_links">
+    <%= image_tag "/images/favicons/apple-touch-icon.png", class: "navbar-image", alt: "Rudzainy Rahman" unless action_name == 'index' %>
+    <% if controller_name == 'events' && action_name == 'index' %>
+      <%= link_to "Life Events", root_path, class: "navbar_link active_page" %>
+    <% elsif controller_name == 'events' %>
+      <%= link_to "back to Life Events", root_path, class: "navbar_link #{controller_name == 'events' && action_name == 'index' ? 'active_page' : ''}" %>
+    <% else %>
+      <%= link_to "Life Events", root_path, class: "navbar_link" %>
+    <% end %>
+    <% if controller_name == 'posts' && action_name == 'index' %>
+      <%= link_to "Blog Posts", posts_path, class: "navbar_link active_page" %>
+    <% elsif controller_name == 'posts' %>
+      <%= link_to "back to Blog Posts", posts_path, class: "navbar_link #{controller_name == 'posts' && action_name == 'index' ? 'active_page' : ''}" %>
+    <% else %>
+      <%= link_to "Blog Posts", posts_path, class: "navbar_link" %>
+    <% end %>
+  </div>
+  <div class="navbar_links">
+    <%= link_to "GitHub", "https://github.com/rudzainy", class: "navbar_link", target: "_blank" %>
+    <%= link_to "Twitter", "https://twitter.com/rudzainy", class: "navbar_link", target: "_blank" %>
+    <% if Rails.env.development? %>
+      <span>|</span>
+      <%= link_to "New post", new_post_path, class: "navbar_link" %>
+      <%= link_to "New event", new_event_path, class: "navbar_link" %>
+    <% end %>
+  </div>
+</nav>

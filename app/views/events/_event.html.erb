@@ -1,0 +1,31 @@
+<div class="timeline_item" data-category-filter-target="item" data-category="<%= event.category %>">
+  <div class="timeline_item-left">
+    <div class="timeline_item-date">
+      <% if event.end_date.present? %>
+        <span class="timeline_item-date-span">from</span> <%= event.start_date.strftime("%b %Y") %> <span class="timeline_item-date-span">to</span> <%= event.end_date.strftime("%b %Y") %>
+      <% else %>
+        <span class="timeline_item-date-span">since</span> <%= event.start_date.strftime("%b %Y") %>
+      <% end %>
+    </div>
+  </div>
+  <div class="timeline_item-center">
+    <div class="timeline_circle"></div>
+  </div>
+  <div class="timeline_item-right">
+    <div class="margin-bottom-xlarge">
+      <div class="timeline_text">
+        <% if event.highlight? %>
+          <span class="pill-highlight">Highlight</span>
+        <% end %>
+        <h2 class="<%= event.category %>-title"><%= event.title %></h2>
+        <p><%= event.subtitle %> | <%= event.location %></p>
+        <p><%= event.content %></p>
+        <%= link_to "Read more about this event", event, class: "timeline_link" %>
+      </div>
+    </div>
+    <div class="timeline_image-wrapper">
+      <img src="https://via.placeholder.com/600x400" alt="Event Image" />
+    </div>
+  </div>
+</div>
+

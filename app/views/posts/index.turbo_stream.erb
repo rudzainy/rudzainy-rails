@@ -1,0 +1,5 @@
+<%= turbo_stream.update "posts" do %>
+  <% @posts.each do |post| %>
+    <%= render 'post_index', post: post %>
+  <% end %>
+<% end %>

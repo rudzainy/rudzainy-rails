@@ -3,7 +3,16 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.published
+    if Rails.env.development?
+      @posts = Post.all.order(created_at: :desc)
+    else
+      @posts = Post.all.published.order(created_at: :desc)
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   # GET /posts/1 or /posts/1.json
@@ -65,6 +74,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.expect(post: [ :title, :slug, :status, :content ])
+      params.expect(post: [ :title, :slug, :status, :content, :tldr ])
     end
 end
