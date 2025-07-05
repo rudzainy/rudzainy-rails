@@ -19,9 +19,8 @@
     <div class="container">
       <div class="padding-vertical-xlarge">
         <%# Category Filter Pills using shared component %>
-        <% post_categories = ['work', 'life', 'balance'] %>
         <%= render 'shared/category_filter', 
-                   categories: post_categories, 
+                   categories: Post.categories.keys, 
                    controller_name: 'category-filter', 
                    all_text: 'All posts',
                    css_prefix: 'post' %>
@@ -42,6 +41,30 @@
             <%= render 'post_index', post: post %>
           <% end %>
         </div>
+        <%# Last Timeline Item %>
+        <div class="timeline_item">
+          <div class="timeline_item-left">
+            <div class="timeline_item-date">
+              <span class="timeline_item-date-span">from</span> July 2005 <span class="timeline_item-date-span">to</span> March 2012
+            </div>
+          </div>
+          <div class="timeline_item-center">
+            <div class="timeline_circle"></div>
+          </div>
+          <div class="timeline_item-right">
+            <div class="margin-bottom-xlarge">
+              <div class="timeline_text">
+                <h2 class="timeline-title">Old Blog</h2>
+                <p>Ramblings from a younger me.</p>
+                <%= link_to "Read older posts", "https://rudzainy.blogspot.com", class: "timeline_link", target: "_blank" %>
+              </div>
+            </div>
+            <div class="timeline_image-wrapper">
+              <img src="https://via.placeholder.com/600x400" alt="Post Image">
+            </div>
+          </div>
+        </div>
+        <%# Last Timeline Item End %>
         
         <div class="overlay-fade-top"></div>
         <div class="overlay-fade-bottom"></div>

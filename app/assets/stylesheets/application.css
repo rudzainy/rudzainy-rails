@@ -98,6 +98,10 @@ h2 {
     padding-bottom: 1.5rem;
     gap: 1rem;
   }
+
+  .navbar-top {
+    flex-direction: column-reverse;
+  }
 }
 
 .navbar-image {
@@ -113,7 +117,8 @@ h2 {
 
 .navbar_copy {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: baseline;
 }
 
 .navbar_copy span {
@@ -127,9 +132,8 @@ h2 {
 
 @media screen and (max-width: 768px) {
   .navbar_copy {
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
   }
   .navbar_copy span {
     justify-content: center;

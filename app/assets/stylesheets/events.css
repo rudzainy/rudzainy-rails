@@ -157,6 +157,7 @@
   text-decoration-color: #005477;
   transition: opacity 0.3s ease-in-out;
   display: flex;
+  padding: 4px 8px;
 }
 
 .timeline_link:hover,

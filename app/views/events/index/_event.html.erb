@@ -14,13 +14,13 @@
   <div class="timeline_item-right">
     <div class="margin-bottom-xlarge">
       <div class="timeline_text">
-        <% if event.highlight? %>
-          <span class="pill-highlight">Highlight</span>
+        <% if event.highlight.present? %>
+          <span class="pill-highlight"><%= event.highlight %></span>
         <% end %>
         <h2 class="timeline-title <%= event.category %>-color"><%= event.title %></h2>
         <p><%= event.subtitle %> | <%= event.location %></p>
         <p><%= event.content %></p>
-        <%= link_to "Read more about this event", event, class: "timeline_link" %>
+        <%= link_to "Read more", event, class: "timeline_link" %>
       </div>
     </div>
     <div class="timeline_image-wrapper">

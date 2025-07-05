@@ -1,41 +1,39 @@
 <div class="event-show" data-category="<%= event.category %>">
   <div class="container">
-    <div class="event-header">
-      <div class="event-date">
-        <% if event.end_date.present? %>
-          <span class="event-date-span">From</span> <%= event.start_date.strftime("%B %d, %Y") %> <span class="event-date-span">to</span> <%= event.end_date.strftime("%B %d, %Y") %>
-        <% else %>
-          <span class="event-date-span">Since</span> <%= event.start_date.strftime("%B %d, %Y") %>
-        <% end %>
-      </div>
-      
-      <div class="event-title-section">
-        <% if event.highlight? %>
-          <span class="pill-highlight">Highlight</span>
-        <% end %>
-        <h1 class="event-title <%= event.category %>-color"><%= event.title %></h1>
-        <h3><%= event.subtitle %></h3>
-        <p class="event-location"><i class="fas fa-map-marker-alt"></i> <%= event.location %></p>
-      </div>
-    </div>
-    
-    <div class="event-content">
-      <div class="event-image">
-        <img src="https://via.placeholder.com/1200x600" alt="<%= event.title %>" class="img-fluid" />
-      </div>
-      
-      <div class="event-description">
-        <%= link_to events_path(category: event.category), class: "event-category-pill #{event.category}-pill" do %>
-          <div class="event-category-badge <%= event.category %>-badge"><%= event.category.humanize %></div>
-        <% end %>
-        <div class="event-text">
-          <%= simple_format(event.content) %>
+    <div class="padding-vertical-xlarge">
+      <div class="event-header">
+        <div class="event-date">
+          <% if event.end_date.present? %>
+            <span class="event-date-span">From</span> <%= event.start_date.strftime("%B %d, %Y") %> <span class="event-date-span">to</span> <%= event.end_date.strftime("%B %d, %Y") %>
+          <% else %>
+            <span class="event-date-span">Since</span> <%= event.start_date.strftime("%B %d, %Y") %>
+          <% end %>
+        </div>
+        
+        <div class="event-title-section">
+          <% if event.highlight? %>
+            <span class="pill-highlight">Highlight</span>
+          <% end %>
+          <h1 class="event-title <%= event.category %>-color"><%= event.title %></h1>
+          <h3><%= event.subtitle %></h3>
+          <p class="event-location"><i class="fas fa-map-marker-alt"></i> <%= event.location %></p>
         </div>
       </div>
-    </div>
-    
-    <div class="event-navigation">
-      <%= link_to "← Back to all events", events_path, class: "btn btn-outline-primary" %>
+      
+      <div class="event-content">
+        <div class="event-image">
+          <img src="https://via.placeholder.com/1200x600" alt="<%= event.title %>" class="img-fluid" />
+        </div>
+        
+        <div class="event-description">
+          <%= link_to events_path(category: event.category), class: "event-category-pill #{event.category}-pill" do %>
+            <div class="event-category-badge <%= event.category %>-badge"><%= event.category.humanize %></div>
+          <% end %>
+          <div class="event-text">
+            <%= simple_format(event.content) %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

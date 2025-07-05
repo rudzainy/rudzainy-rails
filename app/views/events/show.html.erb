@@ -2,9 +2,10 @@
 
 <%= render @event %>
 
-<div>
-  <%= link_to "Edit this event", edit_event_path(@event) %> |
-  <%= link_to "Back to events", events_path %>
-
-  <%= button_to "Destroy this event", @event, method: :delete %>
-</div>
+<% if Rails.env.development? %>
+  <div class="event-navigation">
+    <%= link_to "Edit this event", edit_event_path(@event), class: "btn btn-outline-primary" %>
+    <%= link_to "← Back to all events", events_path, class: "btn btn-outline-primary" %>
+    <%= button_to "Destroy this event", @event, class: "btn btn-outline-danger", method: :delete %>
+  </div>
+<% end %>
