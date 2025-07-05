@@ -17,8 +17,12 @@
     <% end %>
   </div>
   <div class="navbar_links">
-    <%= link_to "GitHub", "https://github.com/rudzainy", class: "navbar_link", target: "_blank" %>
-    <%= link_to "Twitter", "https://twitter.com/rudzainy", class: "navbar_link", target: "_blank" %>
+    <%= link_to "https://github.com/rudzainy", class: "navbar_link", target: "_blank" do %>
+      <i class="bi bi-github"></i>
+    <% end %>
+    <%= link_to "https://twitter.com/rudzainy", class: "navbar_link", target: "_blank" do %>
+      <i class="bi bi-twitter"></i>
+    <% end %>
     <% if Rails.env.development? %>
       <span>|</span>
       <%= link_to "New post", new_post_path, class: "navbar_link" %>

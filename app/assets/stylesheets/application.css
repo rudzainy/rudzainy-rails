@@ -20,7 +20,7 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 16px;
   letter-spacing: 1px;
   line-height: 1.5;
@@ -86,15 +86,17 @@ h2 {
   position: relative;
   align-items: center;
   z-index: 100;
-  height: 64px;
+  /* height: 64px; */
   /* background-color: rgba(10, 10, 10, 0.6); */
   background-color: #0a0a0a;
 }
 
 @media screen and (max-width: 768px) {
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    gap: 1rem;
   }
 }
 
@@ -102,6 +104,37 @@ h2 {
   width: 40px;
   height: 40px;
   border-radius: 8px;
+}
+
+.navbar_links {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar_copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar_copy span {
+  font-size: small;
+  font-weight: 200;
+}
+
+.navbar_copy button {
+  padding: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar_copy {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbar_copy span {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .pill-draft {

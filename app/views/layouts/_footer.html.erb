@@ -16,8 +16,12 @@
       <%= link_to "Blog Posts", posts_path, class: "navbar_link" %>
     <% end %>
   </div>
+  <div class="navbar_copy">
+    <span class="text-color-lightgray">&copy; 2003-<%= Date.today.year %> Rudzainy Rahman.&nbsp;</span><span class="text-color-lightgray">Made with
+    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#speakEasySecretEntrance"><i class="bi bi-suit-heart-fill text-danger"></i></button>
+    from MY</span>
+  </div>
   <div class="navbar_links">
-    <span>&copy; <%= Date.today.year %> & made with<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#speakEasySecretEntrance"><i class="bi bi-suit-heart-fill text-danger"></i></button>by Rudzainy Rahman</span>
     <%= link_to "https://github.com/rudzainy", class: "navbar_link", target: "_blank" do %>
       <i class="bi bi-github"></i>
     <% end %>

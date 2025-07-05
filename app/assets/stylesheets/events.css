@@ -168,11 +168,6 @@
   text-decoration-color: #40E0D0;
 }
 
-.navbar_links {
-  display: flex;
-  gap: 1rem;
-}
-
 .link-icon {
   width: 20px;
   height: 20px;
