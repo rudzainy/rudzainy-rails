@@ -161,6 +161,13 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
+    mime-types (3.7.0)
+      logger
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2025.0715)
+    mimemagic (0.4.3)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.5)
@@ -376,6 +383,8 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  mime-types (~> 3.4)
+  mimemagic (~> 0.4.3)
   pg (~> 1.5, >= 1.5.9)
   propshaft
   puma (>= 5.0)

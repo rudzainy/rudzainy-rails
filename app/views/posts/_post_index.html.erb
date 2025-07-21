@@ -1,5 +1,5 @@
 <div class="timeline_item" data-category-filter-target="item" data-category="<%= post.category.to_s %>">
-  <div class="timeline_item-left <% if post.image_path.present? %>style="background-image: url('/images/posts/<%= post.image_path %>'); background-size: cover; background-position: center;"<% end %>">
+  <div class="timeline_item-left" style="<% if post.images.attached? || post.image_path.present? %>background-image: url('<%= post.main_image_url %>'); background-size: cover; background-position: center;<% end %>">
     <div class="timeline_item-date">
       <%= post.created_at.strftime("%a, %-d %B %Y") %>
     </div>

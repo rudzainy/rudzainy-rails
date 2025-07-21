@@ -69,7 +69,13 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params.expect(:slug))
+      @post = Post.find_by(slug: params[:id] || params[:slug])
+      
+      # If we still can't find the post, try to find it by ID as a fallback
+      @post ||= Post.find_by(id: params[:id] || params[:slug]) if (params[:id] || params[:slug]).to_i > 0
+      
+      # If we still can't find the post, raise a 404
+      raise ActiveRecord::RecordNotFound, "Couldn't find Post with 'id'=#{params[:id] || params[:slug]}" if @post.nil?
     end
 
     # Only allow a list of trusted parameters through.
