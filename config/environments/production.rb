@@ -62,7 +62,6 @@ Rails.application.configure do
   
   # Configure SolidQueue settings
   config.solid_queue.silence_polling = false
-  config.solid_queue.metrics_collector_enabled = true
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
