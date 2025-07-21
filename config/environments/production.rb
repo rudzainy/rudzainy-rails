@@ -60,9 +60,8 @@ Rails.application.configure do
     }
   }
   
-  # Ensure jobs are processed in production
+  # Configure SolidQueue settings
   config.solid_queue.silence_polling = false
-  config.solid_queue.poll_interval = 1
   config.solid_queue.metrics_collector_enabled = true
 
   # Ignore bad email addresses and do not raise email delivery errors.
