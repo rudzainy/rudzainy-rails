@@ -26,9 +26,6 @@
         </div>
         
         <div class="event-description">
-          <%= link_to events_path(category: event.category), class: "event-category-pill #{event.category}-pill" do %>
-            <div class="event-category-badge <%= event.category %>-badge"><%= event.category.humanize %></div>
-          <% end %>
           <div class="event-text">
             <%= simple_format(event.content) %>
           </div>

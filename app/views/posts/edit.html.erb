@@ -1,8 +1,9 @@
 <% content_for :title, "Editing post" %>
 
-<h1>Editing post</h1>
-
-<%= render "form", post: @post %>
+<h1>Editing <%= @post.title %></h1>
+<div class="page-wrapper bg-white text-black p-4">
+  <%= render "form", post: @post %>
+</div>
 
 <br>
 

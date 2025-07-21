@@ -60,6 +60,21 @@
   text-align: right;
   justify-content: flex-end;
   align-content: stretch;
+  position: relative;
+  padding: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.timeline_item-left::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(10, 10, 10, 0.7);
+  z-index: -1;
 }
 
 .timeline_item-center {

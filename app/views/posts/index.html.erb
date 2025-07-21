@@ -38,7 +38,7 @@
         
         <div id="posts">
           <% @posts.each do |post| %>
-            <%= render 'post_index', post: post %>
+            <%= render 'posts/index/post', post: post %>
           <% end %>
         </div>
         <%# Last Timeline Item %>
