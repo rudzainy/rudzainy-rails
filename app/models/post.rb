@@ -68,11 +68,12 @@ class Post < ApplicationRecord
     "/images/placeholder.png"
   end
   
+  # This method was private initially. Need to relook if it should be private or public.
   def markdown_file_path
     return nil if file_path.blank?
     Rails.root.join(file_path).to_s
   end
-  
+  # also this one
   def markdown_to_html
     MarkdownProcessor.process_file(markdown_file_path)
   end
