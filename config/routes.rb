@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :events
   if Rails.env.development?
-    resources :posts, param: :slug
+    resources :posts
   else
-    resources :posts, param: :slug, only: [ :index, :show ]
+    resources :posts, only: [ :index, :show ]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

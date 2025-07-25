@@ -9,8 +9,23 @@
             <%= image_tag post.main_image_url, alt: post.title, class: 'img-fluid' %>
           </div>
         <% end %>
-        <div class="paragraph-large">
-          <%= simple_format(post.content) %>
+        
+        <div class="post-content">
+          <%= post.markdown? %>
+          <% if post.markdown? %>
+            <%= @content.present? ? @content.html_safe : 'No content available' %>
+          <% else %>
+            <div class="paragraph-large">
+              <%= post.content.body.to_s.html_safe %>
+            </div>
+            
+            <% if post.tldr.body.present? %>
+              <div class="tldr">
+                <h3>TLDR</h3>
+                <%= post.tldr.body.to_s.html_safe %>
+              </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>

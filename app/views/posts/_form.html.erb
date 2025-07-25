@@ -1,4 +1,4 @@
-<%= form_with(model: post) do |form| %>
+<%= form_with model: post, url: post_path(post.slug) do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -27,18 +27,62 @@
   </div>
   
   <div>
-    <%= form.label :content %>
-    <%= form.rich_textarea :content %>
+    <%= form.label :source_type, 'Content Source' %>
+    <%= form.select :source_type, options_for_select(Post.source_types.keys.map { |type| [type.capitalize, type] }, selected: @post.source_type) %>
   </div>
-  
-  <div>
-    <%= form.label :tldr %>
-    <%= form.rich_textarea :tldr %>
+
+  <div id="database-content" style="display: <%= @post.database? ? 'block' : 'none' %>;">
+    <div>
+      <%= form.label :content %>
+      <%= form.rich_text_area :content %>
+    </div>
+    
+    <div>
+      <%= form.label :tldr, 'TLDR' %>
+      <%= form.rich_text_area :tldr %>
+    </div>
   </div>
+
+  <div id="markdown-content" style="display: <%= @post.markdown? ? 'block' : 'none' %>;">
+    <div>
+      <%= form.label :markdown_content, 'Markdown Content' %>
+      <% if @post.persisted? && @post.markdown? && @post.file_path.present? && File.exist?(@post.markdown_file_path) %>
+        <%= form.text_area :markdown_content, value: File.read(@post.markdown_file_path), rows: 20, style: 'width: 100%' %>
+      <% else %>
+        <%= form.text_area :markdown_content, rows: 20, style: 'width: 100%' %>
+      <% end %>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sourceTypeSelect = document.getElementById('post_source_type');
+      const databaseContent = document.getElementById('database-content');
+      const markdownContent = document.getElementById('markdown-content');
+
+      function toggleContentFields() {
+        if (sourceTypeSelect.value === 'database') {
+          databaseContent.style.display = 'block';
+          markdownContent.style.display = 'none';
+        } else {
+          databaseContent.style.display = 'none';
+          markdownContent.style.display = 'block';
+        }
+      }
+
+      sourceTypeSelect.addEventListener('change', toggleContentFields);
+      toggleContentFields(); // Initialize
+    });
+  </script>
 
   <div>
     <%= form.label :image_path %>
     <%= form.text_field :image_path %>
+  </div>
+
+  <div>
+    <%= form.label :file_path %>
+    <%= form.text_field :file_path %>
   </div>
 
   <div>

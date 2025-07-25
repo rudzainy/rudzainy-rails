@@ -285,7 +285,9 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
         updated_at: Time.current,
         status: :published,
         category: category,
-        image_path: image_path
+        image_path: image_path,
+        source_type: :markdown,
+        file_path: file_path.sub(Rails.root.to_s + '/', '') # Save relative path from Rails root
       )
       
       # Save the post first to get an ID

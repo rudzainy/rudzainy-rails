@@ -15,13 +15,20 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/1 or /posts/1.json
+  # GET /posts/:slug
   def show
+    # If the post is a markdown post, load the content from the file
+    if @post.markdown? && @post.file_path.present? && File.exist?(@post.markdown_file_path)
+      @content = @post.markdown_to_html
+    end
+  rescue ActiveRecord::RecordNotFound => e
+    # If not found, raise a 404
+    raise ActionController::RoutingError, 'Not Found'
   end
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.new(source_type: :database)
   end
 
   # GET /posts/1/edit
@@ -69,17 +76,11 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find_by(slug: params[:id] || params[:slug])
-      
-      # If we still can't find the post, try to find it by ID as a fallback
-      @post ||= Post.find_by(id: params[:id] || params[:slug]) if (params[:id] || params[:slug]).to_i > 0
-      
-      # If we still can't find the post, raise a 404
-      raise ActiveRecord::RecordNotFound, "Couldn't find Post with 'id'=#{params[:id] || params[:slug]}" if @post.nil?
+      @post = Post.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.expect(post: [ :title, :slug, :status, :content, :tldr, :image_path ])
+      params.expect(post: [ :title, :slug, :status, :content, :tldr, :image_path, :source_type, :file_path ])
     end
 end

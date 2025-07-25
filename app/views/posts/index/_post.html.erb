@@ -15,22 +15,8 @@
         <% end %>
         <h2 class="post-title-<%= post.category %>"><%= post.title %></h2>
         <p><%= post.tldr.present? ? post.tldr : post.content.to_plain_text.truncate(150) %></p>
-        <%= link_to "Read full post", post, class: "timeline_link" %>
+        <%= link_to "Read full post", post_path(post), class: "timeline_link" %>
       </div>
     </div>
-    <% if post.content.embeds.attached? %>
-      <div class="timeline_image-wrapper">
-        <% post.content.embeds.each do |embed| %>
-          <% if embed.image? %>
-            <%= image_tag embed.variant(resize_to_limit: [600, 400]), alt: "Post Image" %>
-            <% break %>
-          <% end %>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="timeline_image-wrapper">
-        <img src="https://via.placeholder.com/600x400" alt="Post Image" />
-      </div>
-    <% end %>
   </div>
 </div>
