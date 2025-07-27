@@ -6,6 +6,8 @@ class MarkdownProcessor
       renderer = Redcarpet::Render::HTML.new(
         filter_html: true,
         hard_wrap: true,
+        with_toc_data: true,
+        prettify: true,
         link_attributes: { target: '_blank', rel: 'noopener' }
       )
       

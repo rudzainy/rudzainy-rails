@@ -14,8 +14,8 @@
           <span class="pill-draft">Draft</span>
         <% end %>
         <h2 class="post-title-<%= post.category %>"><%= post.title %></h2>
-        <p><%= post.tldr.present? ? post.tldr : post.content.to_plain_text.truncate(150) %></p>
-        <%= link_to "Read full post", post_path(post), class: "timeline_link" %>
+        <p><%= post.tldr.present? ? post.tldr : post.content.to_plain_text.truncate(500) %></p>
+        <%= link_to "Read full post", post_path(post), class: "link timeline_link" %>
       </div>
     </div>
   </div>

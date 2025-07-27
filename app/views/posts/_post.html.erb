@@ -11,9 +11,9 @@
         <% end %>
         
         <div class="post-content">
-          <%= post.markdown? %>
+          Markdown: <%= post.markdown? %>
           <% if post.markdown? %>
-            <%= @content.present? ? @content.html_safe : 'No content available' %>
+            <%= @markdown_content.present? ? @markdown_content.html_safe : 'No content available' %>
           <% else %>
             <div class="paragraph-large">
               <%= post.content.body.to_s.html_safe %>

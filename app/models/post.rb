@@ -46,12 +46,6 @@ class Post < ApplicationRecord
   
   # Returns the URL for the main post image
   def main_image_url
-    # If we have attached images, use the first one
-    if images.attached?
-      # Return the first attached image
-      return Rails.application.routes.url_helpers.rails_blob_url(images.first, only_path: true)
-    end
-    
     # If we have an image_path but no attached images, try to find it in the public directory
     if image_path.present?
       # Check if the file exists in the public/images directory
@@ -63,6 +57,13 @@ class Post < ApplicationRecord
         return "/images/#{filename}"
       end
     end
+    
+    # If we have attached images, use the first one
+    if images.attached?
+      # Return the first attached image
+      return Rails.application.routes.url_helpers.rails_blob_url(images.first, only_path: true)
+    end
+    
     
     # Default image if none found
     "/images/placeholder.png"

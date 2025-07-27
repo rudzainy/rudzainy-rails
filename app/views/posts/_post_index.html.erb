@@ -11,7 +11,7 @@
     <div class="margin-bottom-xlarge">
       <div class="timeline_text">
         <% if post.status == "draft" %>
-          <span class="pill-draft">Draft</span>
+          <span class="pill-draft">⚠️ Draft</span>
         <% end %>
         <h2 class="post-title-<%= post.category %>"><%= post.title %></h2>
         <p><%= post.tldr.present? ? post.tldr : post.content.to_plain_text.truncate(150) %></p>
@@ -26,10 +26,6 @@
             <% break %>
           <% end %>
         <% end %>
-      </div>
-    <% else %>
-      <div class="timeline_image-wrapper">
-        <img src="https://via.placeholder.com/600x400" alt="Post Image" />
       </div>
     <% end %>
   </div>

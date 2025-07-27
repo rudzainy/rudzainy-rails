@@ -35,13 +35,6 @@
 /* Post Category Filter Pills */
 .filter_pill-work {
   border: 2px solid #4b6cb7;
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin-right: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  opacity: 0.7;
-  display: inline-block;
 }
 
 .filter_pill-work:hover,
@@ -52,13 +45,6 @@
 
 .filter_pill-life {
   border: 2px solid #11998e;
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin-right: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  opacity: 0.7;
-  display: inline-block;
 }
 
 .filter_pill-life:hover,
@@ -69,13 +55,6 @@
 
 .filter_pill-balance {
   border: 2px solid #f46b45;
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin-right: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  opacity: 0.7;
-  display: inline-block;
 }
 
 .filter_pill-balance:hover,
