@@ -51,6 +51,16 @@ class Post < ApplicationRecord
       # If we have an image_path, try to find it in the public directory
       if image_path.present?
         filename = File.basename(image_path)
+        
+        # Check common subdirectories for the image
+        subdirs = ['posts', 'portfolio']
+        
+        subdirs.each do |subdir|
+          # Return the path with the subdirectory if it exists in the repo
+          return "/images/#{subdir}/#{filename}"
+        end
+        
+        # If not found in subdirectories, try the root images directory
         return "/images/#{filename}"
       end
       
@@ -60,13 +70,24 @@ class Post < ApplicationRecord
       # In development/test, use the normal flow
       # If we have an image_path but no attached images, try to find it in the public directory
       if image_path.present?
-        # Check if the file exists in the public/images directory
         filename = File.basename(image_path)
-        public_path = Rails.root.join('public', 'images', filename).to_s
         
+        # Check in root images directory
+        public_path = Rails.root.join('public', 'images', filename).to_s
         if File.exist?(public_path)
-          # If the file exists in public/images, return its URL
           return "/images/#{filename}"
+        end
+        
+        # Check in posts subdirectory
+        posts_path = Rails.root.join('public', 'images', 'posts', filename).to_s
+        if File.exist?(posts_path)
+          return "/images/posts/#{filename}"
+        end
+        
+        # Check in portfolio subdirectory
+        portfolio_path = Rails.root.join('public', 'images', 'portfolio', filename).to_s
+        if File.exist?(portfolio_path)
+          return "/images/portfolio/#{filename}"
         end
       end
       
