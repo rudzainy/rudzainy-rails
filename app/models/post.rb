@@ -46,27 +46,39 @@ class Post < ApplicationRecord
   
   # Returns the URL for the main post image
   def main_image_url
-    # If we have an image_path but no attached images, try to find it in the public directory
-    if image_path.present?
-      # Check if the file exists in the public/images directory
-      filename = File.basename(image_path)
-      public_path = Rails.root.join('public', 'images', filename).to_s
-      
-      if File.exist?(public_path)
-        # If the file exists in public/images, return its URL
+    # In production, prioritize public images to avoid Active Storage issues
+    if Rails.env.production?
+      # If we have an image_path, try to find it in the public directory
+      if image_path.present?
+        filename = File.basename(image_path)
         return "/images/#{filename}"
       end
+      
+      # Default to a placeholder in production
+      return "/images/500x300.png"
+    else
+      # In development/test, use the normal flow
+      # If we have an image_path but no attached images, try to find it in the public directory
+      if image_path.present?
+        # Check if the file exists in the public/images directory
+        filename = File.basename(image_path)
+        public_path = Rails.root.join('public', 'images', filename).to_s
+        
+        if File.exist?(public_path)
+          # If the file exists in public/images, return its URL
+          return "/images/#{filename}"
+        end
+      end
+      
+      # If we have attached images, use the first one
+      if images.attached?
+        # Return the first attached image
+        return Rails.application.routes.url_helpers.rails_blob_url(images.first, only_path: true)
+      end
+      
+      # Default image if none found
+      "/images/500x300.png"
     end
-    
-    # If we have attached images, use the first one
-    if images.attached?
-      # Return the first attached image
-      return Rails.application.routes.url_helpers.rails_blob_url(images.first, only_path: true)
-    end
-    
-    
-    # Default image if none found
-    "/images/placeholder.png"
   end
   
   # This method was private initially. Need to relook if it should be private or public.

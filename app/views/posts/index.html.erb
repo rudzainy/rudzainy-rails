@@ -18,7 +18,6 @@
   <section class="timeline-heading">
     <div class="container">
       <div class="padding-vertical-xlarge">
-        <%# Category Filter Pills using shared component %>
         <%= render 'shared/category_filter', 
                    categories: Post.categories.keys, 
                    controller_name: 'category-filter', 
@@ -35,12 +34,13 @@
         <div class="timeline_progress">
           <div class="timeline_progress-bar"></div>
         </div>
-        
+        <%# Timeline Item Event Loop %>
         <div id="posts">
           <% @posts.each do |post| %>
             <%= render 'posts/index/post', post: post %>
           <% end %>
         </div>
+        <%# Timeline Item Event Loop End %>
         <%# Last Timeline Item %>
         <div class="timeline_item">
           <div class="timeline_item-left">
