@@ -14,6 +14,17 @@ puts "Creating events..."
 
 events = [
   {
+    title: "Digital Product Manager",
+    subtitle: "Maxis Broadband",
+    location: "Kuala Lumpur, Malaysia",
+    start_date: "2024-06-01",
+    end_date: "2024-11-30",
+    remarks: "Contract Term Hire",
+    category: :employment,
+    highlight: "",
+    content: "- Web & mobile app for palm oil seed production.\n- Web & mobile app for R&D activities.\n- Left early from my 2-year contract to find a more flexible working environment."
+  },
+  {
     title: "Platform Designer",
     subtitle: "Ace Resource Advisory Services",
     location: "Kuala Lumpur, Malaysia",

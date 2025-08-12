@@ -1,5 +1,5 @@
 <div class="timeline_item" data-category-filter-target="item" data-category="<%= post.category.to_s %>">
-  <div class="timeline_item-left" style="background-image: url('<%= post.main_image_url %>'); background-size: cover; background-position: center; -webkit-box-shadow: inset 0px 0px 30px 50px rgba(10,10,10,1); box-shadow: inset 0px 0px 30px 50px rgba(10,10,10,1); border-radius: 10px;">
+  <div class="timeline_item-left">
     <div class="timeline_item-date">
       <%= post.created_at.strftime("%a, %-d %B %Y") %>
     </div>
@@ -8,7 +8,7 @@
     <div class="timeline_circle"></div>
   </div>
   <div class="timeline_item-right">
-    <div class="margin-bottom-xlarge">
+    <div class="margin-bottom-medium">
       <div class="timeline_text">
         <% if post.status == "draft" %>
           <span class="pill-draft">Draft</span>
