@@ -25,7 +25,7 @@ renderer = Redcarpet::Render::HTML.new(
   with_toc_data: true,
   hard_wrap: true
 )
-markdown = Redcarpet::Markdown.new(renderer, 
+markdown = Redcarpet::Markdown.new(renderer,
   autolink: true,
   tables: true,
   fenced_code_blocks: true,
@@ -40,14 +40,14 @@ markdown = Redcarpet::Markdown.new(renderer,
 def find_image_file(filename, original_path = '')
   # Clean up the filename
   clean_filename = filename.downcase.strip
-  
+
   # Try exact match first
   return @image_lookup[clean_filename] if @image_lookup[clean_filename]
-  
+
   # Try variations of the filename
   base_name = File.basename(clean_filename, '.*')
   ext = File.extname(clean_filename).downcase
-  
+
   # Generate possible variations
   variations = [
     clean_filename,
@@ -62,14 +62,14 @@ def find_image_file(filename, original_path = '')
     base_name.gsub(/%20/, '_'),  # Handle URL-encoded spaces as underscores
     base_name.gsub(/%20/, '-')   # Handle URL-encoded spaces as hyphens
   ].uniq
-  
+
   # Try each variation
   variations.each do |variant|
     # Try exact match
     if match = @image_lookup[variant]
       return match
     end
-    
+
     # Try partial match
     @image_lookup.each_key do |key|
       if key.include?(variant) || variant.include?(key)
@@ -77,7 +77,7 @@ def find_image_file(filename, original_path = '')
       end
     end
   end
-  
+
   # If we have a path, try to find in subdirectories
   if original_path.include?('/')
     path_parts = original_path.split('/').reject(&:empty?)
@@ -93,7 +93,7 @@ def find_image_file(filename, original_path = '')
       end
     end
   end
-  
+
   nil # No match found
 end
 
@@ -145,7 +145,7 @@ IMAGE_EXTENSIONS = %w[.jpg .jpeg .png .gif .webp .svg .bmp .tiff].freeze
 image_dirs.each do |dir|
   if Dir.exist?(dir)
     # Get all files with image extensions
-    images = Dir.glob(File.join(dir, '**', '*')).select do |f| 
+    images = Dir.glob(File.join(dir, '**', '*')).select do |f|
       File.file?(f) && IMAGE_EXTENSIONS.include?(File.extname(f).downcase)
     end
     all_images.concat(images)
@@ -158,24 +158,24 @@ end
 all_images.each do |path|
   # Get relative path from public or app/assets
   rel_path = path.gsub(%r{.*(public|app/assets/images)/}, '')
-  
+
   # Store with multiple keys for flexible lookup
   filename = File.basename(path).downcase
   basename = File.basename(path, '.*').downcase
-  
+
   # Store with original filename
   @image_lookup[filename] ||= path
-  
+
   # Store with clean filename (no extension)
   clean_name = basename.gsub(/[^a-z0-9]/, '')
   @image_lookup[clean_name] ||= path
-  
+
   # Store with relative path
   @image_lookup[rel_path.downcase] ||= path
-  
+
   # Store with just the basename (no extension, no path)
   @image_lookup[File.basename(path, '.*').downcase] ||= path
-  
+
   # Store with parent directory
   parent_dir = File.basename(File.dirname(path)).downcase
   @image_lookup["#{parent_dir}/#{filename}"] ||= path
@@ -206,7 +206,7 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
 
       # Find images that match the post slug
       matching_images = []
-      
+
       # 1. Try to find images that match the post slug
       slug_variations = [
         slug.downcase,
@@ -214,23 +214,23 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
         slug.downcase.gsub('-', ''),
         slug.downcase.split('-').first
       ].uniq
-      
+
       # 2. Find images that match the slug variations
       slug_variations.each do |slug_var|
         if img = find_image_file(slug_var)
           matching_images << { path: img, alt: metadata['title'], original_path: slug_var }
         end
       end
-      
+
       # 3. Check for images referenced in content using {% responsive_image %} tags
       responsive_images = markdown_content.scan(/\{%\s*responsive_?image\s+(.*?)\s*%\}/i).flatten
-      
+
       responsive_images.each do |img_tag|
         begin
           # Extract path and alt text using a more robust parser
           path = nil
           alt = nil
-          
+
           # Try different patterns to extract path and alt
           if img_tag =~ /path:\s*['"]([^'"]+)['"]/i
             path = $1
@@ -241,15 +241,15 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
           elsif img_tag =~ /([^\s'"%}]+\.[a-z]{3,4})/i
             path = $1
           end
-          
+
           if path
             path = path.strip
-            
+
             # Clean up the path
-            ['assets/img/', 'assets/images/', 'img/', 'images/'].each do |prefix|
+            [ 'assets/img/', 'assets/images/', 'img/', 'images/' ].each do |prefix|
               path = path[prefix.length..-1] if path.start_with?(prefix)
             end
-            
+
             # Try to find the image
             if img = find_image_file(path, path)
               matching_images << { path: img, alt: alt || File.basename(path, '.*').humanize, original_path: path }
@@ -264,10 +264,10 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
           next
         end
       end
-      
+
       # Remove duplicates and nils, and ensure all entries are hashes
       matching_images = matching_images.compact.uniq.select { |img| img.is_a?(Hash) && img[:path].present? }
-      
+
       # Set the first image as the main post image (store just the filename, not the full path)
       image_path = matching_images.any? ? File.basename(matching_images.first[:path]) : nil
 
@@ -275,7 +275,7 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
       category = metadata['category']
       category = category.is_a?(Array) ? category.first : category
       category = (category || 'work').to_s.downcase
-      
+
       # Create post
       post = Post.new(
         title: metadata['title'].to_s,
@@ -289,33 +289,33 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
         source_type: :markdown,
         file_path: file_path.sub(Rails.root.to_s + '/', '') # Save relative path from Rails root
       )
-      
+
       # Save the post first to get an ID
       if post.save
         puts "  - Post saved with ID: #{post.id}"
-        
+
         # Store the post ID for image attachments
         post_id = post.id
-        
+
         # Attach all matching images to the post after saving
         matching_images.each do |img_data|
           begin
             # Only attach if not already attached (check by filename to avoid duplicates)
             filename = File.basename(img_data[:path].to_s)
-            
+
             # Skip if filename is empty
             next if filename.blank?
-            
+
             # Reload the post to ensure we have the latest version
             post = Post.find(post_id)
-            
+
             # Check if the image is already attached
             unless post.images.attached? { |attached_img| attached_img.filename.to_s == filename }
               # Ensure the file exists before attaching
               if File.exist?(img_data[:path].to_s)
                 # Get MIME type using mime-types gem
                 mime_type = MIME::Types.type_for(img_data[:path].to_s).first&.content_type || 'image/jpeg'
-                
+
                 post.images.attach(
                   io: File.open(img_data[:path].to_s),
                   filename: filename,
@@ -337,17 +337,17 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
 
       # Process all found images
       processed_content = markdown_content.dup
-      
+
       # 1. Process responsive_image tags first
       processed_content = processed_content.gsub(/\{%\s*responsive_?image\s+(.*?)\s*%\}/i) do |match|
         # Extract the full match and content
         full_match = $~[0]
         tag_content = $~[1]
-        
+
         # Extract path and alt text
         path = nil
         alt = nil
-        
+
         # Try different patterns to extract path and alt
         if tag_content =~ /path:\s*['"]([^'"]+)['"]/i
           path = $1
@@ -358,32 +358,32 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
         elsif tag_content =~ /([^\s'"%}]+\.[a-z]{3,4})/i
           path = $1
         end
-        
+
         if path
           path = path.strip
-          
+
           # Clean up the path
-          ['assets/img/', 'assets/images/', 'img/', 'images/'].each do |prefix|
+          [ 'assets/img/', 'assets/images/', 'img/', 'images/' ].each do |prefix|
             path = path[prefix.length..-1] if path.start_with?(prefix)
           end
-          
+
           # Try to find the image
           if img = find_image_file(path, path)
             # Attach the file to the post
             filename = File.basename(img)
-            
+
             # Check if already attached to avoid duplicates
             unless post.images.any? { |a| a.filename.to_s.downcase == filename.downcase }
               post.images.attach(io: File.open(img), filename: filename)
             end
-            
+
             # Get the attached file
             attached_file = post.images.find { |a| a.filename.to_s.downcase == filename.downcase }
-            
+
             if attached_file
               # Generate the image URL
               img_url = Rails.application.routes.url_helpers.rails_blob_path(attached_file, only_path: true)
-              
+
               # Return a nice HTML figure with the image
               alt_text = alt || File.basename(path, '.*').humanize
               "<figure class=\"post-image\">\n  <img src=\"#{img_url}\" alt=\"#{alt_text}\">\n  #{alt_text.present? ? "<figcaption>#{alt_text}</figcaption>" : ""}\n</figure>"
@@ -397,37 +397,37 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
           "<!-- Could not parse image tag: #{full_match} -->"
         end
       end
-      
+
       # 2. Convert markdown to HTML
       html_content = markdown.render(processed_content)
-      
+
       # 3. Process any remaining images in the content
       # This handles standard markdown images: ![alt](path/to/image.jpg)
       html_content = html_content.gsub(/<img[^>]+src=["']([^"']+)["'][^>]*>/) do |img_tag|
         src = $1
-        
+
         # Skip if it's already a data URL or absolute URL
         next img_tag if src.start_with?('data:', 'http://', 'https://', '/assets/')
-        
+
         # Clean up the path
         clean_src = src.gsub(%r{^/}, '')
-        
+
         # Try to find the image
         if img = find_image_file(clean_src, clean_src)
           filename = File.basename(img)
-          
+
           # Attach if not already attached
           unless post.images.any? { |a| a.filename.to_s.downcase == filename.downcase }
             post.images.attach(io: File.open(img), filename: filename)
           end
-          
+
           # Get the attached file
           attached_file = post.images.find { |a| a.filename.to_s.downcase == filename.downcase }
-          
+
           if attached_file
             # Generate the image URL
             img_url = Rails.application.routes.url_helpers.rails_blob_path(attached_file, only_path: true)
-            
+
             # Replace the src with the new URL
             img_tag.gsub(/src=["'][^"']*["']/, "src=\"#{img_url}\"")
           else
@@ -437,7 +437,7 @@ Dir.glob(File.join(posts_dir, '*.md')).each do |file_path|
           img_tag
         end
       end
-      
+
       # Set the content as rich text
       post.content = html_content
 
@@ -479,48 +479,48 @@ hoojah_post = Post.find_by(slug: 'the-hoojah-project')
 if hoojah_post
   # Hardcoded images for Hoojah Project with their corresponding alt text
   hoojah_images = [
-    { 
-      path: 'hoojah/thumbnail-hoojah.jpg', 
+    {
+      path: 'hoojah/thumbnail-hoojah.jpg',
       filename: 'thumbnail-hoojah.jpg',
       alt: 'Hoojah Project Thumbnail'
     },
-    { 
-      path: 'hoojah/Home-User.png', 
+    {
+      path: 'hoojah/Home-User.png',
       filename: 'Home-User.png',
       alt: 'Home page showing timeline view of recently updated polls. Desktop users would be able to see additional information in the left and right sidebars.'
     },
-    { 
-      path: 'hoojah/User-Show-Votes.png', 
+    {
+      path: 'hoojah/User-Show-Votes.png',
       filename: 'User-Show-Votes.png',
       alt: 'User profile page showing all participated (and possibly trending or promoted) polls by the user.'
     },
-    { 
-      path: 'hoojah/Poll-Show-User.png', 
+    {
+      path: 'hoojah/Poll-Show-User.png',
       filename: 'Poll-Show-User.png',
       alt: 'A poll page, illustrating three main interactions a user can engage with a poll. Users can vote, add supporting arguments under each vote option independently of their personal vote, as well as engage in a one-on-one debate with another user.'
     },
-    { 
-      path: 'hoojah/Debate-Show-Ended.png', 
+    {
+      path: 'hoojah/Debate-Show-Ended.png',
       filename: 'Debate-Show-Ended.png',
       alt: 'A one-on-one debate page (seems to be getting good traction, probably because of the two well known public figure debating... interesting stuff).'
     },
-    { 
-      path: 'hoojah/Business-Search.png', 
+    {
+      path: 'hoojah/Business-Search.png',
       filename: 'Business-Search.png',
       alt: 'Analytic page for business tier users.'
     },
-    { 
-      path: 'hoojah/Log-In.png', 
+    {
+      path: 'hoojah/Log-In.png',
       filename: 'Log-In.png',
       alt: 'The log in and sign up feature is combined into a single page. Log in takes priority over sign up, therefore on mobile, the sign up form would be pushed down.'
     },
-    { 
-      path: 'hoojah/Poll-New.png', 
+    {
+      path: 'hoojah/Poll-New.png',
       filename: 'Poll-New.png',
       alt: 'Registered users can create new polls with some options for customization.'
     },
-    { 
-      path: 'hoojah/User-Show-Polls.png', 
+    {
+      path: 'hoojah/User-Show-Polls.png',
       filename: 'User-Show-Polls.png',
       alt: 'Alternative design of user profile page with badges. The idea for badges came from the need to group user interests together, where a badge could be affiliated with user groups, active categories or user achievements.'
     }
@@ -535,9 +535,9 @@ if hoojah_post
       Rails.root.join('public', 'images', 'portfolio', File.basename(img[:path])),
       Rails.root.join('app', 'assets', 'images', File.basename(img[:path]))
     ]
-    
+
     found_path = search_paths.find { |path| File.exist?(path) }
-    
+
     if found_path
       { path: found_path, alt: img[:alt], filename: File.basename(img[:path]) }
     else
@@ -553,11 +553,11 @@ if hoojah_post
   # Attach new images
   hoojah_images.each_with_index do |img, index|
     img_path = img[:path].to_s  # Convert Pathname to string
-    
+
     if File.exist?(img_path)
       mime_type = MIME::Types.type_for(img_path).first&.content_type || 'image/jpeg'
       filename = img[:filename] || File.basename(img_path)
-      
+
       begin
         hoojah_post.images.attach(
           io: File.open(img_path),
@@ -565,7 +565,7 @@ if hoojah_post
           content_type: mime_type,
           identify: false
         )
-        
+
         # Set the first image as the main image if it contains 'thumbnail' or if it's the first image
         if (img_path.include?('thumbnail') || index == 0) && hoojah_post.image_path.blank?
           hoojah_post.update(image_path: filename)
@@ -580,16 +580,16 @@ if hoojah_post
       puts "  - Image not found: #{img_path}"
     end
   end
-  
+
   # Get the current content as HTML
   content = hoojah_post.content.body.to_html
-  
+
   # Create a mapping of image filenames to their Active Storage URLs
   image_urls = {}
-  
+
   if hoojah_post.images.attached?
     puts "\n=== Processing Hoojah Project Post (ID: #{hoojah_post.id}) ==="
-    
+
     # First, log all attached images
     puts "\nAttached images:"
     hoojah_post.images.each do |image|
@@ -598,57 +598,57 @@ if hoojah_post
       image_urls[filename.downcase] = image_url
       puts "  - #{filename} => #{image_url}"
     end
-    
+
     # Log the hoojah_images we're trying to match
     puts "\nHoojah images to process:"
     hoojah_images.each do |img|
       filename = File.basename(img[:filename])
       puts "  - #{filename} (alt: #{img[:alt][0..50]}...)"
     end
-    
+
     # For debugging, show the current content before any changes
     puts "\nCurrent content (first 500 chars):"
     puts content[0..500] + "...\n"
-    
+
     # First, extract all image tags from the content
     image_tags = content.scan(/<img[^>]+>/)
     puts "\nFound #{image_tags.size} image tags in content"
-    
+
     # Process each image tag
     image_tags.each_with_index do |img_tag, index|
       puts "\nProcessing image tag #{index + 1}:"
       puts "  - Original tag: #{img_tag}"
-      
+
       # Extract src and alt attributes
       src_match = img_tag.match(/src=["']([^"']+)["']/i)
       alt_match = img_tag.match(/alt=["']([^"']*)["']/i)
-      
+
       if src_match && src_match[1]
         src = src_match[1]
         alt = alt_match && alt_match[1] ? alt_match[1] : ""
-        
+
         puts "  - Current src: #{src}"
         puts "  - Current alt: #{alt}"
-        
+
         # Find the matching image from our hoojah_images
         matching_image = hoojah_images.find do |img|
           filename = File.basename(img[:filename])
           alt.include?(img[:alt][0..30]) ||  # Check if alt text matches partially
           src.include?(filename)             # Or if src contains the filename
         end
-        
+
         if matching_image
           filename = File.basename(matching_image[:filename])
           if image_url = image_urls[filename.downcase]
             puts "  - Found matching image: #{filename}"
             puts "  - New URL: #{image_url}"
-            
+
             # Replace the src in the img tag
             new_tag = img_tag.gsub(/src=["'][^"']*["']/i, "src=\"#{image_url}\"")
-            
+
             # Update the content with the new tag
             content = content.gsub(img_tag, new_tag)
-            
+
             puts "  - Updated tag: #{new_tag}"
           else
             puts "  - No URL found for attached image: #{filename}"
@@ -660,22 +660,22 @@ if hoojah_post
         puts "  - No src attribute found in image tag"
       end
     end
-    
+
     # For debugging, show the updated content
     puts "\nUpdated content (first 500 chars):"
     puts content[0..500] + "..."
-    
+
     # Update the post content with the fixed image URLs
     hoojah_post.update(content: content)
     puts "\n=== Updated post content with fixed image URLs ==="
-    
+
     # Verify the update was successful
     updated_post = Post.find(hoojah_post.id)
     puts "Post content updated? #{updated_post.content.body.to_s.include?('rails/active_storage') ? 'Yes' : 'No'}"
   else
     puts "\nNo images attached to the Hoojah Project post!"
   end
-  
+
   # Also replace any responsive_image tags with standard markdown image syntax
   content = content.gsub(
     /\{%\s*responsive_image\s+path:\s*['"]([^'"\s}]+)['"][^%]*%\}/i
@@ -689,7 +689,7 @@ if hoojah_post
       "![#{filename}](/images/posts/hoojah/#{filename})"
     end
   end
-  
+
   # Handle responsive_image tags with alt text
   content = content.gsub(
     /\{%\s*responsive_image\s+path:\s*['"]([^'"\s}]+)['"][^%]*alt:\s*['"]([^'"]+)['"][^%]*%\}/i
@@ -704,7 +704,7 @@ if hoojah_post
       "![#{alt_text}](/images/posts/hoojah/#{filename})"
     end
   end
-  
+
   # Update the post content if it has changed
   if content != hoojah_post.content.body.to_s
     hoojah_post.update(content: content)
@@ -712,7 +712,7 @@ if hoojah_post
   else
     puts "  - No image path updates needed in content"
   end
-  
+
   puts "✓ Updated Hoojah Project post with hardcoded images"
 else
   puts "! Hoojah Project post not found. Skipping hardcoded image update."
@@ -769,3 +769,26 @@ posts_to_update.each do |slug, category|
 end
 
 puts "Updated #{updated_count} posts with specific categories"
+
+puts "Add custom posts"
+
+
+
+# {
+#   title: "Achievement: Level 40",
+#   tldr: "Unlocked new abilities and level up stats!",
+#   start_date: "2025-09-01",
+#   category: :life,
+#   source_type: :database,
+#   content: "Cat scratching, Rails 8"
+# },
+# {
+#   title: "Level Up: Level 36 --> Level 37",
+#   tldr: "Got Married!",
+#   location: "Kuala Lumpur, Malaysia",
+#   start_date: "2022-09-01",
+#   remarks: "Term Hire",
+#   category: :level_up,
+#   highlight: "",
+#   content: "- Web & mobile app for palm oil seed production.\n- Web & mobile app for R&D activities.\n- Left early from my 2-year contract to find a more flexible working environment."
+# }

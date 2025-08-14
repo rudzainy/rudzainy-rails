@@ -1,3 +1,4 @@
+<% content_for :title, "Posts" %>
 <div class="page-wrapper" data-controller="category-filter" style="position: relative; z-index: 1; background: rgba(15, 12, 41, 0.85);">
   <section class="timeline-heading">
     <div class="container">
@@ -27,8 +28,6 @@
     </div>
   </section>
   <section class="timeline">
-    <% content_for :title, "Posts" %>
-    
     <div class="container">
       <div class="timeline_component">
         <div class="timeline_progress">
@@ -55,19 +54,17 @@
             <div class="margin-bottom-xlarge">
               <div class="timeline_text">
                 <h2 class="timeline-title">Old Blog</h2>
-                <p>Ramblings from a younger me.</p>
+                <p>Ramblings by a younger me.</p>
                 <%= link_to "Read older posts", "https://rudzainy.blogspot.com", class: "timeline_link", target: "_blank" %>
               </div>
             </div>
           </div>
         </div>
         <%# Last Timeline Item End %>
-        
         <div class="overlay-fade-top"></div>
         <div class="overlay-fade-bottom"></div>
       </div>
     </div>
-    
     <div style="height: 50vh; background-color: #0a0a0a;"></div>
   </section>
 </div>
