@@ -212,6 +212,34 @@
   display: none !important;
 }
 
+/* Post-specific left column with image */
+.post-left {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 240px;
+}
+
+.post-left::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.15) 0%,
+    rgba(10, 10, 10, 0.5) 100%
+  );
+  pointer-events: none;
+}
+
+.post-left .timeline_item-date {
+  position: relative;
+  z-index: 1;
+}
+
 
 @media screen and (max-width: 768px) {
   h1 {
@@ -280,5 +308,11 @@
 
   .margin-bottom-xlarge {
     margin-bottom: 5rem;
+  }
+
+  /* Ensure images remain clipped on mobile */
+  .post-left {
+    min-height: 180px;
+    overflow: hidden;
   }
 }
